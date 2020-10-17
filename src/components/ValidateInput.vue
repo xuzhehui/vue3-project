@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input @blur="valiDateInput" v-model="inputRef.value" class="form-control" :class="{'is-invalid':inputRef.error}" type="text">
+        <input v-bind='$attrs' @blur="valiDateInput" :value="inputRef.value" @input='updateValue' class="form-control" :class="{'is-invalid':inputRef.error}">
         <div v-show="inputRef.error" class="invalid-feedback" >{{inputRef.message}}</div>
     </div>
 </template>
@@ -14,15 +14,24 @@
     export type RulesProps = RuleProps[];
     export default defineComponent({
         props: {
-            rules: Array as PropType<RulesProps>
+            rules: Array as PropType<RulesProps>,
+            modelValue: String
         },
-        setup(props){
+        // 非props属性
+        inheritAttrs: false,
+        setup(props, context){
+            console.log(context.attrs)
             const emailRule = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/
             const inputRef = reactive({
-                value: '',
+                value: props.modelValue || '',
                 error: false,
                 message: ''
             })
+            const updateValue = (e: KeyboardEvent) => {
+                const targetValue = (e.target as HTMLInputElement).value
+                inputRef.value = targetValue
+                context.emit('update:modelValue', inputRef.value)
+            }
             const valiDateInput = () => {
                 if (props.rules) {
                     const allRolled = props.rules.every(rule => {
@@ -45,7 +54,8 @@
             }
             return {
                 inputRef,
-                valiDateInput
+                valiDateInput,
+                updateValue
             }
         }
     })

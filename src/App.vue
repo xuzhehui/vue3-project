@@ -2,7 +2,7 @@
   <div class="container">
       <Header :user='user'/>
       <!-- <ColumnList :list="list"/> -->
-      <validate-form>
+      <validate-form @form-submit='submitForm'>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">邮箱地址{{email}}</label>
           <ValidateInput v-model="email" placeholder='请输入邮箱地址' :rules="rules" type='text'></ValidateInput>
@@ -63,11 +63,15 @@ export default defineComponent({
       { type: 'email', message: '邮箱地址格式错误' }
     ]
     const email = ref(null)
+    const submitForm = (value: boolean) => {
+      console.log(123, value)
+    }
     return {
       // list: columnsData,
       user: userData,
       rules,
-      email
+      email,
+      submitForm
     }
   },
   components: { Header, ValidateInput, ValidateForm }

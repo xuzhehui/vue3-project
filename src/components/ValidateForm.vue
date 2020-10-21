@@ -10,20 +10,31 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue'
+import { defineComponent, onUnmounted } from 'vue'
+import mitt, { Emitter } from 'mitt'
+export const emitter = mitt()
+type ValueDataFunc = () => boolean
 export default defineComponent({
     props: {},
     emits: ['form-submit'],
     setup (props, context) {
+        let subscribe: ValueDataFunc[] = []
         const submitForm = () => {
-            context.emit('form-submit', true)
+            const result = subscribe.map(row => row()).every(m => m)
+            context.emit('form-submit', result)
         }
-
+        const callback = (func?: ValueDataFunc|any) => {
+            subscribe.push(func)
+        }
+        emitter.on('form-item-created', callback)
+        onUnmounted(() => {
+            emitter.off('form-item-created', callback)
+            subscribe = []
+        })
         return {
             submitForm
         }
     }
-
 })
 </script>
 

@@ -6,7 +6,8 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent, PropType, reactive } from 'vue'
+    import { defineComponent, onMounted, PropType, reactive } from 'vue'
+    import { emitter } from './ValidateForm.vue'
     interface RuleProps {
         type: 'required' | 'email';
         message: string;
@@ -20,7 +21,6 @@
         // 非props属性
         inheritAttrs: false,
         setup(props, context){
-            console.log(context.attrs)
             const emailRule = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/
             const inputRef = reactive({
                 value: props.modelValue || '',
@@ -50,8 +50,13 @@
                         return pass
                     })
                     inputRef.error = !allRolled
+                    return allRolled
                 }
+                return true
             }
+            onMounted(() => {
+                emitter.emit('form-item-created', valiDateInput)
+            })
             return {
                 inputRef,
                 valiDateInput,

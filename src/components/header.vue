@@ -1,13 +1,13 @@
 <template>
     <div>
         <nav class="navbar navbar-dark bg-primary mb-4 px-4 text-center">
-            <a class="navbar-brand" href="#">行者</a>
+            <a class="navbar-brand" href="#" @click="back">行者</a>
             <ul v-if="!user.isLogin" class="list-inline mb-0">
                 <li class="list-inline-item">
-                    <a href="#" class="btn btn-outline-light my-2">登录</a>
+                    <router-link class="btn btn-outline-light my-2" to='/login'>登录</router-link>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#" class="btn btn-outline-light my-2">注册</a>
+                    <router-link class="btn btn-outline-light my-2" to='/login'>注册</router-link>
                 </li>
             </ul>
 
@@ -26,6 +26,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType } from 'vue'
+import { useRouter } from 'vue-router'
 import DropDown from '@/components/DropDown.vue'
 import DropDownItem from '@/components/DropDownItem.vue'
 export interface UserProps{
@@ -43,6 +44,20 @@ export default defineComponent({
         user: {
             type: Object as PropType<UserProps>,
             required: true
+        }
+    },
+    setup(){
+        const router = useRouter()
+        const back = () => {
+            router.push({
+                path: '/',
+                params: {
+                    id: 1
+                }
+            })
+        }
+        return {
+            back
         }
     }
 })

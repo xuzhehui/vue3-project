@@ -27,7 +27,20 @@ const routers = createRouter({
         }
     ]
 })
+const store = createStore({
+    state: {
+        num: 1
+    },
+    mutations: {
+        addnum(state) {
+            state.num += 1
+        }
+    }
+})
+store.commit('addnum')
+console.log(store.state)
 const app = createApp(App)
+app.use(store)
 app.use(routers)
 app.mount('#app')
 // createApp(App).mount('#app')

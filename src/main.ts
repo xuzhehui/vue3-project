@@ -1,10 +1,10 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import { createStore } from 'vuex'
 import Home from './Views/home.vue'
 import Login from './Views/login.vue'
 import Column from './Views/column.vue'
 import App from './App.vue'
+import store from './store/store'
 
 const historyWeb = createWebHistory()
 const routers = createRouter({
@@ -27,20 +27,7 @@ const routers = createRouter({
         }
     ]
 })
-const store = createStore({
-    state: {
-        num: 1
-    },
-    mutations: {
-        addnum(state) {
-            state.num += 1
-        }
-    }
-})
-store.commit('addnum')
-console.log(store.state)
 const app = createApp(App)
 app.use(store)
 app.use(routers)
 app.mount('#app')
-// createApp(App).mount('#app')

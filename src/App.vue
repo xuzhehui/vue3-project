@@ -7,17 +7,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Header, { UserProps } from '@/components/header.vue'
+import Header from '@/components/header.vue'
 import Footer from '@/components/footer.vue'
-const userData: UserProps = {
-  isLogin: false,
-  name: 'dest'
-}
+import { useStore } from 'vuex'
 export default defineComponent({
   name: 'App',
   setup(){
+    const store = useStore()
+    const userData = computed(() => store.state.user)
+    console.log(userData)
     return {
       user: userData
     }

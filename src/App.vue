@@ -12,12 +12,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Header from '@/components/header.vue'
 import Footer from '@/components/footer.vue'
 import { useStore } from 'vuex'
+import { GlobalDataProps } from '@/store/store'
 export default defineComponent({
   name: 'App',
   setup(){
-    const store = useStore()
+    const store = useStore<GlobalDataProps>()
     const userData = computed(() => store.state.user)
-    console.log(userData)
     return {
       user: userData
     }

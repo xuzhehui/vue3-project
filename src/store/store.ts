@@ -9,7 +9,16 @@ const store = createStore<GlobalDataProps>({
     state: {
         columns: columnsData,
         user: userData
+    },
+    mutations: {
+        login(state){
+            state.user.isLogin = true
+        }
+    },
+    getters: {
+        bigColumns(state){
+            return state.columns.filter(c => c.id > 2).length
+        }
     }
 })
-console.log(store)
 export default store

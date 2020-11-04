@@ -1,5 +1,6 @@
 <template>
     <div>
+        {{bigNum}}
         <ColumnList :list="list"/>
     </div>
 </template>
@@ -8,13 +9,15 @@
 import { defineComponent, computed } from 'vue'
 import ColumnList from '@/components/ColumnList.vue'
 import { useStore } from 'vuex'
+import { GlobalDataProps } from '@/store/store'
 export default defineComponent({
     setup(){
-        const store = useStore()
+        const store = useStore<GlobalDataProps>()
         const list = computed(() => store.state.columns)
-        console.log(list)
+        const bigNum = computed(() => store.getters.bigColumns)
         return {
-            list
+            list,
+            bigNum
         }
     },
     components: { ColumnList }

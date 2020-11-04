@@ -21,6 +21,7 @@ import { defineComponent, ref } from 'vue'
 import ValidateInput, { RulesProps } from '@/components/ValidateInput.vue'
 import { useRouter } from 'vue-router'
 import ValidateForm from '@/components/ValidateForm.vue'
+import store from '@/store/store'
 export default defineComponent({
     setup(){
         const rules: RulesProps = [
@@ -36,13 +37,10 @@ export default defineComponent({
         const password = ref('')
         const inputRef = ref<any>(null)
         const submitForm = (result: boolean) => {
-            console.log(result)
             if (result) {
+                store.commit('login')
                 router.push({
-                    path: '/column',
-                    params: {
-                        id: 1
-                    }
+                    path: '/'
                 })
             }
         }

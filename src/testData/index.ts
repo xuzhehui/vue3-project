@@ -17,13 +17,13 @@ export const columnsData: ColumnsProps[] = [
       description: '描述2'
     },
     {
-      id: 2,
+      id: 3,
       avatar: 'https://t8.baidu.com/it/u=3571592872,3353494284&fm=79&app=86&size=h300&n=0&g=4n&f=jpeg?sec=1603338545&t=c0c5d9814b73a853bee0bb08ea8f45b9',
       title: '表头2',
       description: '描述2'
     },
     {
-      id: 2,
+      id: 4,
       avatar: 'https://t8.baidu.com/it/u=3571592872,3353494284&fm=79&app=86&size=h300&n=0&g=4n&f=jpeg?sec=1603338545&t=c0c5d9814b73a853bee0bb08ea8f45b9',
       title: '表头2',
       description: '描述2'
@@ -38,5 +38,5 @@ export interface UserProps{
 
 export const userData: UserProps = {
     isLogin: false,
-    name: 'dest'
+    name: 'dest1'
 }

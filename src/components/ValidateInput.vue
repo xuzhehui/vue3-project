@@ -1,6 +1,7 @@
 <template>
     <div>
-        <input v-bind='$attrs' @blur="valiDateInput" :value="inputRef.value" @input='updateValue' class="form-control" :class="{'is-invalid':inputRef.error}">
+        <input v-if="inputRef.type != 'textarea'" v-bind='$attrs' @blur="valiDateInput" :value="inputRef.value" @input='updateValue' class="form-control" :class="{'is-invalid':inputRef.error}">
+        <input v-if="inputRef.type === 'textarea'" v-bind='$attrs' @blur="valiDateInput" :value="inputRef.value" @input='updateValue' class="form-control" :class="{'is-invalid':inputRef.error}">
         <div v-show="inputRef.error" class="invalid-feedback" >{{inputRef.message}}</div>
     </div>
 </template>
@@ -16,6 +17,7 @@
     export default defineComponent({
         props: {
             rules: Array as PropType<RulesProps>,
+            // type: String as PropType<TypeProps>,
             modelValue: String
         },
         // 非props属性

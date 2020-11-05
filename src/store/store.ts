@@ -13,6 +13,9 @@ const store = createStore<GlobalDataProps>({
     mutations: {
         login(state){
             state.user.isLogin = true
+        },
+        loginOut(state){
+            state.user.isLogin = false
         }
     },
     getters: {

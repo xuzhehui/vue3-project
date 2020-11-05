@@ -14,9 +14,9 @@
             <ul v-else class="list-inline-item mb-0">
                 <li class="list-inline-item">
                     <drop-down :title="`你好 ${user.name}`">
-                        <drop-down-item><a href="#" class="dropdown-item">新建文章</a></drop-down-item>
+                        <drop-down-item><a @click="createPost" href="#" class="dropdown-item">新建文章</a></drop-down-item>
                         <drop-down-item disabled><a href="#" class="dropdown-item">编辑文章</a></drop-down-item>
-                        <drop-down-item><a href="#" class="dropdown-item">退出登录</a></drop-down-item>
+                        <drop-down-item><a @click="loginOut" href="#" class="dropdown-item">退出登录</a></drop-down-item>
                     </drop-down>
                 </li>
             </ul>
@@ -27,6 +27,7 @@
 <script lang='ts'>
 import { defineComponent, PropType } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 import DropDown from '@/components/DropDown.vue'
 import DropDownItem from '@/components/DropDownItem.vue'
 export interface UserProps{
@@ -48,6 +49,7 @@ export default defineComponent({
     },
     setup(){
         const router = useRouter()
+        const store = useStore()
         const back = () => {
             router.push({
                 path: '/',
@@ -56,8 +58,18 @@ export default defineComponent({
                 }
             })
         }
+        const createPost = () => {
+            router.push({
+                path: '/create'
+            })
+        }
+        const loginOut = () => {
+            store.commit('loginOut')
+        }
         return {
-            back
+            back,
+            createPost,
+            loginOut
         }
     }
 })

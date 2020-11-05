@@ -1,33 +1,16 @@
 import { createApp } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from './Views/home.vue'
-import Login from './Views/login.vue'
-import Column from './Views/column.vue'
+import routers from './router/router'
 import App from './App.vue'
+import axios from 'axios'
 import store from './store/store'
 
-const historyWeb = createWebHistory()
-const routers = createRouter({
-    history: historyWeb,
-    routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: Home
-        },
-        {
-            path: '/login',
-            name: 'login',
-            component: Login
-        },
-        {
-            path: '/column',
-            name: 'column',
-            component: Column
-        }
-    ]
+axios.defaults.baseURL = 'http://apis/imooc.com/api/'
+axios.interceptors.request.use(config => {
+    config.params = { ...config.params, icode: '3E9FABBECA96C187' }
+    return config
 })
 const app = createApp(App)
+axios('/api/columns', { params: { currentPage: 1, pageSize: 10 } })
 app.use(store)
 app.use(routers)
 app.mount('#app')

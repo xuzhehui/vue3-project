@@ -11,7 +11,7 @@
 
 <script lang='ts'>
 import { defineComponent, onUnmounted } from 'vue'
-import mitt, { Emitter } from 'mitt'
+import mitt from 'mitt'
 export const emitter = mitt()
 type ValueDataFunc = () => boolean
 export default defineComponent({
